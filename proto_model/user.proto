@@ -1,0 +1,29 @@
+syntax="proto3";
+
+option go_package = "github.com/asyrawi/proto_example/model";
+
+import "google/protobuf/Empty.proto";
+
+
+message UserId {
+   string user_id = 1;
+}
+
+service UserServices {
+    rpc GetUser(UserId) returns(Users) {};
+    rpc GetAllUser(google.protobuf.Empty) returns(Users){};
+}
+
+
+message User {
+    string name = 1;
+    int32  age = 2;
+    string address = 3;
+    string phone_number= 4;
+}
+
+
+message Users {
+  repeated User list = 1;
+}
+
