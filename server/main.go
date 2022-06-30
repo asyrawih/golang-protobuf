@@ -9,7 +9,6 @@ import (
 
 	pb "github.com/asyrawi/proto_example/model"
 	"google.golang.org/grpc"
-	"google.golang.org/protobuf/types/known/emptypb"
 )
 
 type Server struct {
@@ -32,16 +31,39 @@ func main() {
 	// Register Service nya di sini
 	pb.RegisterUserServicesServer(grpc_server, &Server{})
 
-	log.Printf("Server Running on :%v", list.Addr())
+	log.Printf("Server Running on :%v", list.Addr().String())
 
 	log.Fatal(grpc_server.Serve(list))
 
 }
 
-func (s *Server) GetUser(context.Context, *pb.UserId) (*pb.Users, error) {
-	return nil, nil
+func (s *Server) GetUser(ctx context.Context, userId *pb.UserId) (*pb.User, error) {
+	fmt.Println(userId)
+	return &pb.User{
+		Name:        "Hanan",
+		Age:         12,
+		Address:     "Tomoni",
+		PhoneNumber: "0851234123123",
+	}, nil
 }
+func (s *Server) GetAllUser(context.Context, *pb.Void) (*pb.Users, error) {
+	// You Can Use Database Call In Here
+	users := &pb.Users{
+		List: []*pb.User{
+			{
+				Name:        "Hanan",
+				Age:         12,
+				Address:     "Tomoni",
+				PhoneNumber: "0851234123123",
+			},
+			{
+				Name:        "Asyrawi",
+				Age:         12,
+				Address:     "Tomoni",
+				PhoneNumber: "0851234123123",
+			},
+		},
+	}
 
-func (s *Server) GetAllUser(context.Context, *emptypb.Empty) (*pb.Users, error) {
-	return nil, nil
+	return users, nil
 }

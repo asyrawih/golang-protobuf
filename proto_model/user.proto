@@ -2,16 +2,16 @@ syntax="proto3";
 
 option go_package = "github.com/asyrawi/proto_example/model";
 
-import "google/protobuf/Empty.proto";
 
+message Void {}
 
 message UserId {
    string user_id = 1;
 }
 
 service UserServices {
-    rpc GetUser(UserId) returns(Users) {};
-    rpc GetAllUser(google.protobuf.Empty) returns(Users){};
+    rpc GetUser(UserId) returns(User) {};
+    rpc GetAllUser(Void) returns(Users){};
 }
 
 

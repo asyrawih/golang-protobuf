@@ -10,8 +10,4 @@ gen:
 run:
 	@echo "Running Server"
 	@go run "server/main.go"
-
-consumer:
-	@echo "Running Client"
-	@go run "client/main.go"
 	
